@@ -1,12 +1,11 @@
 package tv.zeekdageek.chanciercubes.proxy;
 
-import chanceCubes.registry.GiantCubeRegistry;
 import cpw.mods.fml.common.event.*;
 import tv.zeekdageek.chanciercubes.ChancierCubes;
 import tv.zeekdageek.chanciercubes.Tags;
-import tv.zeekdageek.chanciercubes.backportedrewards.giantRewards.FluidSphereReward;
+import tv.zeekdageek.chanciercubes.commands.ServerCommands;
 import tv.zeekdageek.chanciercubes.config.Config;
-import tv.zeekdageek.chanciercubes.util.math.RegisteryHelper;
+import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.FluidSphereReward;
 
 public class CommonProxy {
 
@@ -15,7 +14,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
-        ChancierCubes.info(Config.greeting);
         ChancierCubes.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION + " and group name " + Tags.GROUPNAME);
     }
 
@@ -25,14 +23,16 @@ public class CommonProxy {
     // postInit "Handle interaction with other mods, complete your setup based on this."
     public void postInit(FMLPostInitializationEvent event) {
         ChancierCubes.info("Injecting ChancierCube Rewards.");
-        RegisteryHelper.RegisterGiantCube(new FluidSphereReward());
-        GiantCubeRegistry.INSTANCE.registerReward(new FluidSphereReward());
+
+        new FluidSphereReward();
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {}
 
     // register server commands in this event handler
-    public void serverStarting(FMLServerStartingEvent event) {}
+    public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new ServerCommands());
+    }
 
     public void serverStarted(FMLServerStartedEvent event) {}
 
