@@ -13,18 +13,23 @@ import tv.zeekdageek.chanciercubes.rewards.BaseChancierBackport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FluidSphereReward extends BaseChancierBackport
+public class MixedFluidSphereReward extends BaseChancierBackport
 {
-    private static final String rewardName = "fluid_sphere";
+    private static final String rewardName = "mixed_fluid_sphere";
     public EnumBackportValues rewardEnabled;
 
-    public FluidSphereReward() {
+    public MixedFluidSphereReward() {
         super();
     }
 
     @Override
     public String getReplacedName() {
-        return "chancecube:Fluid_Tower";
+        return "chancecubes:Fluid_Tower";
+    }
+
+    @Override
+    public boolean isGiantcube() {
+        return true;
     }
 
     @Override
@@ -34,19 +39,17 @@ public class FluidSphereReward extends BaseChancierBackport
 
     @Override
     public String getDesc() {
-        return "Newer version of chancecube:Fluid_Tower";
+        return "Creates a glass orb, each block inside a randomized fluid. Backported from ChanceCubes 1.18.x.";
     }
 
     @Override
     public String getDefaultState() {
-        return EnumBackportValues.ENABLED.toString();
+        return EnumBackportValues.REPLACE.toString();
     }
 
     @Override
-    public void trigger(World world, int posX, int posY, int posZ, EntityPlayer player) {
+    public void trigger(World world, int x, int y, int z, EntityPlayer entityPlayer) {
         List<OffsetBlock> blocks = new ArrayList<>();
-
-        Fluid fluid = ChanceCubeRegistry.getRandomFluid();
 
         int delay = 0;
         for(int i = 0; i <= 5; i++)
@@ -60,17 +63,18 @@ public class FluidSphereReward extends BaseChancierBackport
                         double dist = Math.sqrt(Math.abs(xx * xx + yy * yy + zz * zz));
                         if(dist <= 5 - i && dist > 5 - (i + 1))
                         {
-                            OffsetBlock osb;
                             if(i == 0)
                             {
-                                osb = new OffsetBlock(xx, yy, zz, Blocks.glass, false, delay);
-                                //osb.setBlockState(Blocks.glass);
+                                OffsetBlock osb = new OffsetBlock(xx, yy, zz, Blocks.glass, false, delay);
+                                //osb.setBlockState(Blocks.GLASS.defaultBlockState());
+                                blocks.add(osb);
                             }
                             else
                             {
-                                osb = new OffsetBlock(xx, yy, zz, fluid.getBlock(), false, delay);
+                                Fluid fluid = ChanceCubeRegistry.getRandomFluid();
+                                OffsetBlock osb = new OffsetBlock(xx, yy, zz, fluid.getBlock(), false, delay);
+                                blocks.add(osb);
                             }
-                            blocks.add(osb);
                             delay++;
 
                         }
@@ -80,16 +84,14 @@ public class FluidSphereReward extends BaseChancierBackport
             delay += 10;
         }
 
-        for(OffsetBlock b : blocks) {
-            b.spawnInWorld(world, posX, posY, posZ);
-        }
+        for(OffsetBlock b : blocks)
+            b.spawnInWorld(world, x, y, z);
     }
 
     @Override
     public int getChanceValue() {
-        return 15;
+        return 0;
     }
-
 
     @Override
     public String getName() {

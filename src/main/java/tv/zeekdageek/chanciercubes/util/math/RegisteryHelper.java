@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 
 public class RegisteryHelper
 {
-    public void RegisteryHelper() {
+    RegisteryHelper() {
     }
 
     /**

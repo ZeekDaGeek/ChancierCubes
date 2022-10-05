@@ -17,7 +17,7 @@ import tv.zeekdageek.chanciercubes.proxy.CommonProxy;
 )
 public class ChancierCubes {
 
-    private static Logger LOG = LogManager.getLogger(Tags.MODID);
+    private static final Logger LOG = LogManager.getLogger(Tags.MODID);
 
     @SidedProxy(clientSide = Tags.GROUPNAME + ".proxy.ClientProxy", serverSide = Tags.GROUPNAME + ".proxy.CommonProxy")
     public static CommonProxy proxy;

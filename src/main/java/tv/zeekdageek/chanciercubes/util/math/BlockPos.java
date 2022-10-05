@@ -172,7 +172,7 @@ public class BlockPos extends Vec3i
                         }
                         else if (this.lastPosX == x2 && this.lastPosY == y2 && this.lastPosZ == z2)
                         {
-                            return (BlockPos)this.endOfData();
+                            return this.endOfData();
                         }
                         else
                         {
@@ -228,7 +228,7 @@ public class BlockPos extends Vec3i
                         }
                         else if (this.pos.x == x2 && this.pos.y == y2 && this.pos.z == z2)
                         {
-                            return (BlockPos.MutableBlockPos)this.endOfData();
+                            return this.endOfData();
                         }
                         else
                         {
@@ -352,7 +352,7 @@ public class BlockPos extends Vec3i
     public static final class PooledMutableBlockPos extends BlockPos.MutableBlockPos
     {
         private boolean released;
-        private static final List<BlockPos.PooledMutableBlockPos> POOL = Lists.<BlockPos.PooledMutableBlockPos>newArrayList();
+        private static final List<BlockPos.PooledMutableBlockPos> POOL = Lists.newArrayList();
 
         private PooledMutableBlockPos(int xIn, int yIn, int zIn)
         {
