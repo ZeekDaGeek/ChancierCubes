@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import tv.zeekdageek.chanciercubes.ChancierCubes;
 import tv.zeekdageek.chanciercubes.Tags;
 import tv.zeekdageek.chanciercubes.config.EnumBackportValues;
 import tv.zeekdageek.chanciercubes.rewards.BaseChancierBackport;
@@ -14,13 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class BlockInfectionReward extends BaseChancierBackport {
     private static final String rewardName = "world_infection";
     public EnumBackportValues rewardEnabled;
 
-    /**
-     * Register the reward and setup configs here.
-     */
     public BlockInfectionReward() {
         super();
     }
@@ -67,8 +66,6 @@ public class BlockInfectionReward extends BaseChancierBackport {
         Blocks.web, Blocks.glowstone, Blocks.netherrack };
     // @formatter:on
 
-    private final int randomWool = new Random().nextInt(16);
-
     private final BlockPos[] touchingPos = {new BlockPos(1, 0, 0), new BlockPos(0, 0, 1), new BlockPos(0, 1, 0), new BlockPos(-1, 0, 0), new BlockPos(0, 0, -1), new BlockPos(0, -1, 0)};
 
     /**
@@ -83,44 +80,52 @@ public class BlockInfectionReward extends BaseChancierBackport {
         int delay = 0;
         int delayShorten = 20;
 
-        BlockPos lastPos = new BlockPos(x, y, z);
+        int randomWool = ChancierCubes.Rand.nextInt(16);
+
+        BlockPos pos = new BlockPos(x, y, z);
+        BlockPos lastPos = pos;
         List<BlockPos> possibleBlocks = new ArrayList<>();
         List<BlockPos> changedBlocks = new ArrayList<>();
         changedBlocks.add(new BlockPos(0, 0, 0));
         List<OffsetBlock> blocks = new ArrayList<>();
-        addSurroundingBlocks(level, pos, new BlockPos(0, 0, 0), changedBlocks, possibleBlocks);
+        addSurroundingBlocks(world, pos, new BlockPos(0, 0, 0), changedBlocks, possibleBlocks);
+
+        Random rand = new Random();
 
         for(int i = 0; i < 5000; i++)
         {
             BlockPos nextPos;
             if(possibleBlocks.size() > 0)
             {
-                int index = RewardsUtil.rand.nextInt(possibleBlocks.size());
+                int index = rand.nextInt(possibleBlocks.size());
                 nextPos = possibleBlocks.get(index);
                 possibleBlocks.remove(index);
             }
             else
             {
-                nextPos = lastPos.offset(touchingPos[RewardsUtil.rand.nextInt(touchingPos.length)]);
+                nextPos = lastPos.add(touchingPos[rand.nextInt(touchingPos.length)]);
             }
 
             changedBlocks.add(nextPos);
-            addSurroundingBlocks(level, pos, nextPos, changedBlocks, possibleBlocks);
-            BlockState state = whitelist[RewardsUtil.rand.nextInt(whitelist.length)];
-            blocks.add(new OffsetBlock(nextPos.getX(), nextPos.getY(), nextPos.getZ(), state, false, (delay / delayShorten)));
+            addSurroundingBlocks(world, pos, nextPos, changedBlocks, possibleBlocks);
+            Block state = whitelist[rand.nextInt(whitelist.length)];
+            OffsetBlock newBlock = new OffsetBlock(nextPos.getX(), nextPos.getY(), nextPos.getZ(), state, false, (delay / delayShorten));
+            if (state == Blocks.wool)
+                newBlock.setData((byte) randomWool);
+            blocks.add(newBlock);
             delay++;
             lastPos = nextPos;
         }
 
         for(OffsetBlock b : blocks)
-            b.spawnInWorld(level, pos.getX(), pos.getY(), pos.getZ());
+            b.spawnInWorld(world, pos.getX(), pos.getY(), pos.getZ());
     }
 
     private void addSurroundingBlocks(World world, BlockPos worldCord, BlockPos offsetCord, List<BlockPos> changedBlocks, List<BlockPos> possibleBlocks) {
         for(BlockPos pos : touchingPos) {
-            BlockPos checkPos = offsetCord.offset(pos);
+            BlockPos checkPos = offsetCord.add(pos);
             if (!changedBlocks.contains(checkPos) && !possibleBlocks.contains(checkPos)) {
-                BlockPos localPos = worldCord.offset(checkPos);
+                BlockPos localPos = worldCord.add(checkPos);
                 if (!(world.getBlock(localPos.getX(), localPos.getY(), localPos.getZ()) == Blocks.air)) {
                     possibleBlocks.add(checkPos);
                 }
