@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import tv.zeekdageek.chanciercubes.ChancierCubes;
 import tv.zeekdageek.chanciercubes.Tags;
 import tv.zeekdageek.chanciercubes.config.EnumBackportValues;
 import tv.zeekdageek.chanciercubes.rewards.BaseChancierBackport;
@@ -25,7 +26,6 @@ public class BeaconArenaReward extends BaseChancierBackport
         Blocks.web, Blocks.glowstone, Blocks.netherrack };
     // @formatter:on
 
-    private final int randomWool = new Random().nextInt(16);
 
     public BeaconArenaReward() {
         super();
@@ -129,6 +129,8 @@ public class BeaconArenaReward extends BaseChancierBackport
     }
 
     public void editFloor(List<OffsetBlock> blocks) {
+        int randomWool = ChancierCubes.Rand.nextInt(16);
+
         int delay = 0;
         List<BlockPos> usedPositions = new ArrayList<>();
         BlockPos temp;
