@@ -6,3 +6,15 @@ dependencies {
     //compile fileTree(dir: 'lib/', include: '*.jar')
     compile deobf("https://mediafiles.forgecdn.net/files/2419/789/ChanceCubes-1.7.10-2.4.1.182.jar")
 }
+
+/**
+ * Saving code for later
+if (developmentEnvironmentUserName) {
+    arguments += [
+        "--username", developmentEnvironmentUserName,
+        "--uuid", "7657b3d4cfd34078b523df0e1eb0f307",
+        "--width", "1280",
+        "--height", "720"
+    ]
+}
+ */
