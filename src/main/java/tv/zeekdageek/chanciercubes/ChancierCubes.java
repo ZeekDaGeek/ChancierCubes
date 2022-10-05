@@ -5,13 +5,14 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import tv.zeekdageek.chanciercubes.proxy.CommonProxy;
 
-@Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
+@Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]", dependencies = "required-after:chancecubes")
 public class ChancierCubes {
 
     private static Logger LOG = LogManager.getLogger(Tags.MODID);
 
-    @SidedProxy(clientSide = Tags.GROUPNAME + ".ClientProxy", serverSide = Tags.GROUPNAME + ".CommonProxy")
+    @SidedProxy(clientSide = Tags.GROUPNAME + ".proxy.ClientProxy", serverSide = Tags.GROUPNAME + ".proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler
@@ -74,4 +75,5 @@ public class ChancierCubes {
     public static void error(String message) {
         LOG.error(message);
     }
+
 }
