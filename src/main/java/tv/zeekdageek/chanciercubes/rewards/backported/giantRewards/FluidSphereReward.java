@@ -7,21 +7,24 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import tv.zeekdageek.chanciercubes.Tags;
-import tv.zeekdageek.chanciercubes.config.Config;
 import tv.zeekdageek.chanciercubes.config.EnumBackportValues;
-import tv.zeekdageek.chanciercubes.rewards.IChancierCubeBackport;
-import tv.zeekdageek.chanciercubes.util.math.RegisteryHelper;
+import tv.zeekdageek.chanciercubes.rewards.BaseChancierBackport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FluidSphereReward implements IChancierCubeBackport {
+public class FluidSphereReward extends BaseChancierBackport
+{
     private static final String rewardName = "fluid_sphere";
     public EnumBackportValues rewardEnabled;
 
     public FluidSphereReward() {
-        this.rewardEnabled = Config.backportGiantcubeConfig(this);
-        RegisteryHelper.BackportGiantCube(this, "chancecube:Fluid_Tower");
+        super();
+    }
+
+    @Override
+    public String getReplacedName() {
+        return "chancecube:Fluid_Tower";
     }
 
     @Override
