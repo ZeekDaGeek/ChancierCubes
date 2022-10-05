@@ -5,7 +5,9 @@ import tv.zeekdageek.chanciercubes.ChancierCubes;
 import tv.zeekdageek.chanciercubes.Tags;
 import tv.zeekdageek.chanciercubes.commands.ServerCommands;
 import tv.zeekdageek.chanciercubes.config.Config;
+import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.BeaconArenaReward;
 import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.FluidSphereReward;
+import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.MixedFluidSphereReward;
 
 public class CommonProxy {
 
@@ -24,7 +26,13 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         ChancierCubes.info("Injecting ChancierCube Rewards.");
 
+        // Load in all the ChanceCube Rewards
+        // Giant Chance Cubes
         new FluidSphereReward();
+        new MixedFluidSphereReward();
+        new BeaconArenaReward();
+
+        // Chance Cubes
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {}
