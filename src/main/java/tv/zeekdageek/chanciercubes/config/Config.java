@@ -39,8 +39,8 @@ public class Config {
 
     public static EnumBackportValues backportChancecubeConfig(IChancierCubeBackport reward) {
         EnumBackportValues result = EnumBackportValues.convert(config.get(
+            Categories.BACKPORT_CHANCE_CUBE,
             reward.getConfigName(),
-            Categories.backported_chancecube,
             reward.getDefaultState(),
             reward.getDesc(),
             EnumBackportValues.validStringArray()
