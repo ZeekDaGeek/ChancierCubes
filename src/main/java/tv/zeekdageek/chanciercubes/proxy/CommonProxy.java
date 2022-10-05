@@ -1,13 +1,13 @@
 package tv.zeekdageek.chanciercubes.proxy;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.*;
 import tv.zeekdageek.chanciercubes.ChancierCubes;
 import tv.zeekdageek.chanciercubes.Tags;
 import tv.zeekdageek.chanciercubes.commands.ServerCommands;
 import tv.zeekdageek.chanciercubes.config.Config;
-import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.BeaconArenaReward;
-import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.FluidSphereReward;
-import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.MixedFluidSphereReward;
+import tv.zeekdageek.chanciercubes.events.TickListener;
+import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.*;
 
 public class CommonProxy {
 
@@ -15,6 +15,10 @@ public class CommonProxy {
     // etc., and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
+
+        TickListener listener = new TickListener();
+        FMLCommonHandler.instance().bus().register(listener);
+        //MinecraftForge.EVENT_BUS.register(listener);
 
         ChancierCubes.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION + " and group name " + Tags.GROUPNAME);
     }
@@ -31,18 +35,22 @@ public class CommonProxy {
         new FluidSphereReward();
         new MixedFluidSphereReward();
         new BeaconArenaReward();
+        new BlockInfectionReward();
+        new FireworkShowReward();
 
         // Chance Cubes
     }
 
-    public void serverAboutToStart(FMLServerAboutToStartEvent event) {}
+    public void serverAboutToStart(FMLServerAboutToStartEvent event) {
+    }
 
     // register server commands in this event handler
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new ServerCommands());
     }
 
-    public void serverStarted(FMLServerStartedEvent event) {}
+    public void serverStarted(FMLServerStartedEvent event) {
+    }
 
     public void serverStopping(FMLServerStoppingEvent event) {}
 
