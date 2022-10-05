@@ -51,17 +51,30 @@ public class ServerCommands implements ICommand {
             EntityPlayer player = (EntityPlayer) sender;
 
             if (args.length > 1) {
+                String rewardName = args[1];
 
-                IChanceCubeReward reward = ChanceCubeRegistry.INSTANCE.getRewardByName(args[1]);
-                IChanceCubeReward giantReward = GiantCubeRegistry.INSTANCE.getRewardByName(args[1]);
+                IChanceCubeReward reward = ChanceCubeRegistry.INSTANCE.getRewardByName(rewardName);
+                IChanceCubeReward giantReward = GiantCubeRegistry.INSTANCE.getRewardByName(rewardName);
+
+                if (reward == null && giantReward == null) {
+                    String newRewardName = String.format("chanciercubes:%s", rewardName);
+                    reward = ChanceCubeRegistry.INSTANCE.getRewardByName(newRewardName);
+                    giantReward = GiantCubeRegistry.INSTANCE.getRewardByName(newRewardName);
+                }
+
+                if (reward == null && giantReward == null) {
+                    String newRewardName = String.format("chancecubes:%s", rewardName);
+                    reward = ChanceCubeRegistry.INSTANCE.getRewardByName(newRewardName);
+                    giantReward = GiantCubeRegistry.INSTANCE.getRewardByName(newRewardName);
+                }
 
                 if (reward == null && giantReward == null) {
                     sender.addChatMessage(new ChatComponentText(String.format("Unable to find a reward with the name %s.", args[1])));
                 } else if (reward != null) {
-                    sender.addChatMessage(new ChatComponentText(String.format("Triggering standard reward: %s", args[1])));
+                    sender.addChatMessage(new ChatComponentText(String.format("Triggering standard reward: %s", reward.getName())));
                     reward.trigger(world, (int) player.posX, (int) player.posY, (int) player.posZ, player);
                 } else {
-                    sender.addChatMessage(new ChatComponentText(String.format("Triggering giant reward: %s", args[1])));
+                    sender.addChatMessage(new ChatComponentText(String.format("Triggering giant reward: %s", giantReward.getName())));
                     giantReward.trigger(world, (int) player.posX, (int) player.posY, (int) player.posZ, player);
                 }
 
