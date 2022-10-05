@@ -4,6 +4,8 @@ import chanceCubes.registry.ChanceCubeRegistry;
 import chanceCubes.registry.GiantCubeRegistry;
 import chanceCubes.rewards.defaultRewards.IChanceCubeReward;
 
+import javax.annotation.Nullable;
+
 public class RegisteryHelper
 {
     public void RegisteryHelper() {
@@ -14,9 +16,11 @@ public class RegisteryHelper
      * @param reward
      * @param replaced_reward
      */
-    public static void BackportGiantCube(IChanceCubeReward reward, String replaced_reward) {
+    public static void BackportGiantCube(IChanceCubeReward reward, @Nullable String replaced_reward) {
         RegisterGiantCube(reward);
-        UnregisterGiantCube(replaced_reward);
+        if (replaced_reward != null) {
+            UnregisterGiantCube(replaced_reward);
+        }
     }
 
     public static void RegisterGiantCube(IChanceCubeReward reward) {
@@ -32,9 +36,11 @@ public class RegisteryHelper
      * @param reward
      * @param replaced_reward
      */
-    public static void BackportCube(IChanceCubeReward reward, String replaced_reward) {
-        RegisterGiantCube(reward);
-        UnregisterGiantCube(replaced_reward);
+    public static void BackportCube(IChanceCubeReward reward, @Nullable String replaced_reward) {
+        RegisterCube(reward);
+        if (replaced_reward != null) {
+            UnregisterCube(replaced_reward);
+        }
     }
 
     public static void RegisterCube(IChanceCubeReward reward) {

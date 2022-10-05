@@ -9,6 +9,8 @@ import net.minecraft.world.World;
  */
 public interface IChancierCubeReward extends IChanceCubeReward
 {
+    boolean isGiantcube();
+
     /**
      * The name of the reward that shows in the configuration file.
      * @return String
