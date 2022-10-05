@@ -23,6 +23,11 @@ public class FluidSphereReward extends BaseChancierBackport
     }
 
     @Override
+    public boolean isGiantcube() {
+        return true;
+    }
+
+    @Override
     public String getReplacedName() {
         return "chancecube:Fluid_Tower";
     }
