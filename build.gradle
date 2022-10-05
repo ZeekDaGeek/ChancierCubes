@@ -429,8 +429,10 @@ afterEvaluate {
 runClient {
     if (developmentEnvironmentUserName) {
         arguments += [
-            "--username",
-            developmentEnvironmentUserName
+            "--username", developmentEnvironmentUserName,
+            "--uuid", "7657b3d4cfd34078b523df0e1eb0f307",
+            "--width", "1280",
+            "--height", "720"
         ]
     }
 
