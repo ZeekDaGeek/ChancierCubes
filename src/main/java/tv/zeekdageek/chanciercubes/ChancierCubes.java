@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tv.zeekdageek.chanciercubes.proxy.CommonProxy;
 
+import java.util.Random;
+
 @Mod(
     modid = Tags.MODID,
     version = Tags.VERSION,
@@ -18,6 +20,7 @@ import tv.zeekdageek.chanciercubes.proxy.CommonProxy;
 public class ChancierCubes {
 
     private static final Logger LOG = LogManager.getLogger(Tags.MODID);
+    public static final Random Rand = new Random();
 
     @SidedProxy(clientSide = Tags.GROUPNAME + ".proxy.ClientProxy", serverSide = Tags.GROUPNAME + ".proxy.CommonProxy")
     public static CommonProxy proxy;
