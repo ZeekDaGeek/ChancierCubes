@@ -43,15 +43,15 @@ public abstract class BaseChancierBackport implements IChancierCubeBackport
         return null;
     }
 
-    public void trigger(World world, int x, int y, int z, EntityPlayer entityPlayer) {
-
-    }
-
     public int getChanceValue() {
         return 0;
     }
 
     public String getName() {
         return null;
+    }
+
+    public void trigger(World world, int x, int y, int z, EntityPlayer entityPlayer) {
+
     }
 }
