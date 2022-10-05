@@ -15,7 +15,7 @@ import java.util.List;
 public class ServerCommands implements ICommand {
     private List<String> aliases = new ArrayList();
 
-    private int OP_ACCESS = 3;
+    private int OP_ACCESS = 2;
 
     public ServerCommands() {
         this.aliases.add("ChancierCubes");
