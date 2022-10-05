@@ -7,7 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tv.zeekdageek.chanciercubes.proxy.CommonProxy;
 
-@Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]", dependencies = "required-after:chancecubes")
+@Mod(
+    modid = Tags.MODID,
+    version = Tags.VERSION,
+    name = Tags.MODNAME,
+    acceptedMinecraftVersions = "[1.7.10]",
+    dependencies = "required-after:chancecubes",
+    acceptableRemoteVersions = "*"
+)
 public class ChancierCubes {
 
     private static Logger LOG = LogManager.getLogger(Tags.MODID);
