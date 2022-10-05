@@ -28,7 +28,7 @@ public class MixedFluidSphereReward extends BaseChancierBackport
     }
 
     @Override
-    public boolean isGiantcube() {
+    public boolean isGiantCube() {
         return true;
     }
 

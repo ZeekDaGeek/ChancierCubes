@@ -5,11 +5,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 /**
- * Adds configuration information to Chancecube rewards by default.
+ * Adds configuration information to Chance Cube rewards by default.
  */
 public interface IChancierCubeBackport extends IChanceCubeReward
 {
-    boolean isGiantcube();
+    boolean isGiantCube();
 
     String getReplacedName();
 
@@ -34,12 +34,12 @@ public interface IChancierCubeBackport extends IChanceCubeReward
 
 
     /**
-     * The function called when a chancecube reward happens.
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @param entityPlayer
+     * The function called when a Chance Cube reward happens.
+     * @param world {@link World}
+     * @param x int
+     * @param y int
+     * @param z int
+     * @param entityPlayer {@link EntityPlayer}
      */
     void trigger(World world, int x, int y, int z, EntityPlayer entityPlayer);
 

@@ -2,6 +2,7 @@ package tv.zeekdageek.chanciercubes;
 
 // Use this class for Strings only. Do not import any classes here. It will lead to issues with Mixins if in use!
 
+@SuppressWarnings("SpellCheckingInspection")
 public class Tags {
 
     // GRADLETOKEN_* will be replaced by your configuration values at build time

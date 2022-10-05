@@ -37,7 +37,7 @@ public class BeaconArenaReward extends BaseChancierBackport
     }
 
     @Override
-    public boolean isGiantcube() {
+    public boolean isGiantCube() {
         return true;
     }
 
@@ -48,7 +48,7 @@ public class BeaconArenaReward extends BaseChancierBackport
 
     @Override
     public String getDesc() {
-        return "Summons a large circular arena with 4 beacons in the diagnals, with a glass wall around the edges. Backported from ChanceCubes 1.18.x";
+        return "Summons a large circular arena with 4 beacons in the diagonals, with a glass wall around the edges. Backport from ChanceCubes 1.18.x";
     }
 
     @Override

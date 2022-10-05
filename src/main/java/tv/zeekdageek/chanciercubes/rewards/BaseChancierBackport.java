@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import tv.zeekdageek.chanciercubes.config.Config;
 import tv.zeekdageek.chanciercubes.config.EnumBackportValues;
-import tv.zeekdageek.chanciercubes.util.math.RegisteryHelper;
+import tv.zeekdageek.chanciercubes.util.math.RegistryHelper;
 
 public abstract class BaseChancierBackport implements IChancierCubeBackport
 {
@@ -14,12 +14,12 @@ public abstract class BaseChancierBackport implements IChancierCubeBackport
      * Register the reward and setup configs here.
      */
     public BaseChancierBackport() {
-        if (this.isGiantcube()) {
-            this.rewardEnabled = Config.backportGiantcubeConfig(this);
-            RegisteryHelper.BackportGiantCube(this, this.getReplacedName());
-        } else if (!this.isGiantcube()) {
-            this.rewardEnabled = Config.backportChancecubeConfig(this);
-            RegisteryHelper.BackportCube(this, this.getReplacedName());
+        if (this.isGiantCube()) {
+            this.rewardEnabled = Config.backportGiantCubeConfig(this);
+            RegistryHelper.BackportGiantCube(this, this.getReplacedName());
+        } else if (!this.isGiantCube()) {
+            this.rewardEnabled = Config.backportChanceCubeConfig(this);
+            RegistryHelper.BackportCube(this, this.getReplacedName());
         }
     }
 
@@ -27,7 +27,7 @@ public abstract class BaseChancierBackport implements IChancierCubeBackport
         return null;
     }
 
-    public boolean isGiantcube() {
+    public boolean isGiantCube() {
         return false;
     }
 

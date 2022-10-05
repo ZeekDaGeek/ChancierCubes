@@ -6,13 +6,13 @@ import chanceCubes.rewards.defaultRewards.IChanceCubeReward;
 
 import javax.annotation.Nullable;
 
-public class RegisteryHelper
+public class RegistryHelper
 {
-    RegisteryHelper() {
+    RegistryHelper() {
     }
 
     /**
-     * Inserts the new {reward} into the GiantCubeRegistery and disabled the replaced_reward.
+     * Inserts the new {reward} into the GiantCubeRegistry and disabled the replaced_reward.
      * @param reward
      * @param replaced_reward
      */

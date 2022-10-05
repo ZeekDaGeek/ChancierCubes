@@ -375,13 +375,13 @@ public class BlockPos extends Vec3i
             {
                 if (!POOL.isEmpty())
                 {
-                    BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = POOL.remove(POOL.size() - 1);
+                    BlockPos.PooledMutableBlockPos pooledMutableBlockPos = POOL.remove(POOL.size() - 1);
 
-                    if (blockpos$pooledmutableblockpos != null && blockpos$pooledmutableblockpos.released)
+                    if (pooledMutableBlockPos != null && pooledMutableBlockPos.released)
                     {
-                        blockpos$pooledmutableblockpos.released = false;
-                        blockpos$pooledmutableblockpos.setPos(xIn, yIn, zIn);
-                        return blockpos$pooledmutableblockpos;
+                        pooledMutableBlockPos.released = false;
+                        pooledMutableBlockPos.setPos(xIn, yIn, zIn);
+                        return pooledMutableBlockPos;
                     }
                 }
             }

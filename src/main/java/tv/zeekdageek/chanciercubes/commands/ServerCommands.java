@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerCommands implements ICommand {
-    private final List<String> aliases = new ArrayList();
+    private final List<String> aliases = new ArrayList<>();
 
     private final int OP_ACCESS = 2;
 
@@ -33,7 +33,7 @@ public class ServerCommands implements ICommand {
     }
 
     @Override
-    public List getCommandAliases() {
+    public List<String> getCommandAliases() {
         return this.aliases;
     }
 
@@ -78,7 +78,7 @@ public class ServerCommands implements ICommand {
     }
 
     public void denyCommandAccess(ICommandSender sender, String[] args) {
-        sender.addChatMessage(new ChatComponentText("Unable to use commmand."));
+        sender.addChatMessage(new ChatComponentText("Unable to use command."));
     }
 
     @Override

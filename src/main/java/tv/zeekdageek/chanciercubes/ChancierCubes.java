@@ -24,7 +24,7 @@ public class ChancierCubes {
 
     @Mod.EventHandler
     // preInit "Run before anything else. Read your config, create blocks, items,
-    // etc, and register them with the GameRegistry."
+    // etc., and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
     }

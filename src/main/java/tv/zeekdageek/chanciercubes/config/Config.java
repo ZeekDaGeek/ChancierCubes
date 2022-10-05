@@ -13,17 +13,17 @@ public class Config {
     public static File folder;
 
     public static class Categories {
-        public static final String general = "all general settings";
-        public static final String twitch = "twitch integration";
-        public static final String backported_giantcube = "backported giant chancecube rewards";
-        public static final String backported_chancecube = "backported chancecube rewards";
-        public static final String giantcube = "giant chancecube rewards";
-        public static final String chancecube = "chancecube rewards";
+        public static final String GENERAL = "all general settings";
+        public static final String TWITCH = "twitch integration";
+        public static final String BACKPORT_GIANT_CUBE = "backported giant chance cube rewards";
+        public static final String BACKPORT_CHANCE_CUBE = "backported normal chance cube rewards";
+        public static final String GIANT_CUBE = "giant chance cube rewards";
+        public static final String CHANCE_CUBE = "normal chance cube rewards";
     }
 
-    public static EnumBackportValues backportGiantcubeConfig(IChancierCubeBackport reward) {
+    public static EnumBackportValues backportGiantCubeConfig(IChancierCubeBackport reward) {
         EnumBackportValues result = EnumBackportValues.convert(config.get(
-            Categories.backported_giantcube,
+            Categories.BACKPORT_GIANT_CUBE,
             reward.getConfigName(),
             reward.getDefaultState(),
             reward.getDesc(),
@@ -37,7 +37,7 @@ public class Config {
         return result;
     }
 
-    public static EnumBackportValues backportChancecubeConfig(IChancierCubeBackport reward) {
+    public static EnumBackportValues backportChanceCubeConfig(IChancierCubeBackport reward) {
         EnumBackportValues result = EnumBackportValues.convert(config.get(
             Categories.BACKPORT_CHANCE_CUBE,
             reward.getConfigName(),
@@ -53,10 +53,10 @@ public class Config {
         return result;
     }
 
-    public static boolean registerGiantcubeConfig(IChancierCubeReward reward) {
+    public static boolean registerGiantCubeConfig(IChancierCubeReward reward) {
         boolean result = config.getBoolean(
             reward.getConfigName(),
-            Categories.giantcube,
+            Categories.GIANT_CUBE,
             reward.getDefaultState(),
             reward.getDesc()
         );
@@ -68,10 +68,10 @@ public class Config {
         return result;
     }
 
-    public static boolean registerChancecubeConfig(IChancierCubeReward reward) {
+    public static boolean registerChanceCubeConfig(IChancierCubeReward reward) {
         boolean result = config.getBoolean(
             reward.getConfigName(),
-            Categories.chancecube,
+            Categories.CHANCE_CUBE,
             reward.getDefaultState(),
             reward.getDesc()
         );
@@ -90,19 +90,19 @@ public class Config {
         config.load();
 
         Property backport_replace = config.get(
-                Categories.general,
+                Categories.GENERAL,
                 "empty", true,
                 "I don't want general to be empty"
             );
 
         config.setCategoryComment(
-                Categories.backported_giantcube,
+                Categories.BACKPORT_GIANT_CUBE,
                 "Every backported reward can be set to [enabled/disabled/replace]. Replace will automatically\n" +
                     "disable related reward in the current version. Invalid values are disabled."
             );
 
         config.setCategoryComment(
-                Categories.backported_chancecube,
+                Categories.BACKPORT_CHANCE_CUBE,
                 "Every backported reward can be set to [enabled/disabled/replace]. Replace will automatically\n" +
                     "disable related reward in the current version. Invalid values are disabled."
             );

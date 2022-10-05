@@ -12,7 +12,7 @@ import tv.zeekdageek.chanciercubes.rewards.backported.giantRewards.MixedFluidSph
 public class CommonProxy {
 
     // preInit "Run before anything else. Read your config, create blocks, items,
-    // etc, and register them with the GameRegistry."
+    // etc., and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
