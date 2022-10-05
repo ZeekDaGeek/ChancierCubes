@@ -2,7 +2,6 @@ package tv.zeekdageek.chanciercubes.util.math;
 
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
-import com.sun.javafx.geom.Vec3d;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import org.apache.logging.log4j.LogManager;
@@ -15,21 +14,13 @@ import java.util.List;
 /**
  * Backport of BlockPos from future versions of Minecraft for BlockPos.
  * Rotations are not implemented.
+ * Long relation functions are not implemented.
  */
 @Immutable
 public class BlockPos extends Vec3i
 {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final BlockPos ORIGIN = new BlockPos(0, 0, 0);
-    private static final int NUM_X_BITS = 1 + log2(smallestEncompassingPowerOfTwo(30000000));
-    private static final int NUM_Z_BITS = NUM_X_BITS;
-    private static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
-    private static final int Y_SHIFT = NUM_Z_BITS;
-    private static final int X_SHIFT = Y_SHIFT + NUM_Y_BITS;
-    private static final long X_MASK = (1L << NUM_X_BITS) - 1L;
-    private static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
-    private static final long Z_MASK = (1L << NUM_Z_BITS) - 1L;
-    private static final int[] MULTIPLY_DE_BRUIJN_BIT_POSITION = new int[] {0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
 
     public BlockPos(int x, int y, int z)
     {
@@ -40,35 +31,6 @@ public class BlockPos extends Vec3i
     {
         super(x, y, z);
     }
-
-    /* Section from MathHelper START */
-    public static int smallestEncompassingPowerOfTwo(int value)
-    {
-        int i = value - 1;
-        i = i | i >> 1;
-        i = i | i >> 2;
-        i = i | i >> 4;
-        i = i | i >> 8;
-        i = i | i >> 16;
-        return i + 1;
-    }
-
-    private static boolean isPowerOfTwo(int value)
-    {
-        return value != 0 && (value & value - 1) == 0;
-    }
-
-    public static int log2DeBruijn(int value)
-    {
-        value = isPowerOfTwo(value) ? value : smallestEncompassingPowerOfTwo(value);
-        return MULTIPLY_DE_BRUIJN_BIT_POSITION[(int)((long)value * 125613361L >> 27) & 31];
-    }
-
-    public static int log2(int value)
-    {
-        return log2DeBruijn(value) - (isPowerOfTwo(value) ? 0 : 1);
-    }
-    /* Section taken from MathHelper END */
 
     public BlockPos(Entity source)
     {
@@ -180,18 +142,6 @@ public class BlockPos extends Vec3i
         return new BlockPos(this.getY() * vec.getZ() - this.getZ() * vec.getY(), this.getZ() * vec.getX() - this.getX() * vec.getZ(), this.getX() * vec.getY() - this.getY() * vec.getX());
     }
 
-    public long toLong()
-    {
-        return ((long)this.getX() & X_MASK) << X_SHIFT | ((long)this.getY() & Y_MASK) << Y_SHIFT | ((long)this.getZ() & Z_MASK) << 0;
-    }
-
-    public static BlockPos fromLong(long serialized)
-    {
-        int i = (int)(serialized << 64 - X_SHIFT - NUM_X_BITS >> 64 - NUM_X_BITS);
-        int j = (int)(serialized << 64 - Y_SHIFT - NUM_Y_BITS >> 64 - NUM_Y_BITS);
-        int k = (int)(serialized << 64 - NUM_Z_BITS >> 64 - NUM_Z_BITS);
-        return new BlockPos(i, j, k);
-    }
 
     public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to)
     {
